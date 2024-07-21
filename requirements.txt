@@ -3,3 +3,4 @@ Flask
 requests
 transformers
 Gunicorn
+TensorFlow >= 2.0
