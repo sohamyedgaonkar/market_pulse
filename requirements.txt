@@ -4,3 +4,4 @@ requests
 transformers
 Gunicorn
 TensorFlow >= 2.0
+tf-keras
