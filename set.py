@@ -92,5 +92,4 @@ def process():
 
     return render_template('index.html', positive_companies=finalpos, negative_companies=finalneg)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
