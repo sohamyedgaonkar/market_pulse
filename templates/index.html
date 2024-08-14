@@ -104,20 +104,27 @@
             z-index: 0;
         }
         .results {
+            text-align: left;
             margin-top: 20px;
         }
         .results h3 {
-            color: #bb86fc;
+            color: #03dac5;
         }
         .results ul {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
         }
-        .results li {
+        .results ul li {
             background-color: #2e2e2e;
-            margin: 5px 0;
             padding: 10px;
+            margin-bottom: 10px;
             border-radius: 5px;
+        }
+        .results li.positive {
+            border-color: #28a745;
+        }
+        .results li.negative {
+            border-color: #dc3545;
         }
     </style>
 </head>
@@ -128,40 +135,41 @@
     <div class="container">
         <h1>Market-Pulse</h1>
         <h2>News-driven Stock Prediction</h2>
-        <form action="/process" method="post">
+        <form action="/analyze" method="post">
             <label for="link">News Article Link:</label>
             <input type="text" id="link" name="link" required>
-            <button type="submit">Submit</button>
+            <button type="submit">Analyze</button>
         </form>
         {% if positive_companies or negative_companies %}
         <div class="results">
-            <h3>Positive Impact Companies:</h3>
+            <h2>Predictive Analysis</h2>
+            {% if positive_companies %}
+            <h3>Companies that may be positivly imacted</h3>
             <ul>
                 {% for company in positive_companies %}
-                <li>{{ company }}</li>
+                <li class="positive">{{ company }}</li>
                 {% endfor %}
             </ul>
-            <h3>Negative Impact Companies:</h3>
+            {% endif %}
+            {% if negative_companies %}
+            <h3>Companies that may be negativly imacted</h3>
             <ul>
                 {% for company in negative_companies %}
-                <li>{{ company }}</li>
+                <li class="negative">{{ company }}</li>
                 {% endfor %}
             </ul>
-        </div>
-        {% endif %}
-        {% if error %}
-        <div class="error">
-            <p>{{ error }}</p>
-        </div>
+            {% endif %}
+        </div>  
         {% endif %}
     </div>
-    <div class="background-description">
+    <!--<div class="background-description">
         Market_Pulse leverages advanced NLP and machine learning to analyze news articles and predict how they will impact stock prices. Stay ahead of market movements with actionable insights derived from real-time news analysis.
-    </div>
+    </div>-->
     <script>
         const canvas = document.getElementById('chartCanvas');
         const ctx = canvas.getContext('2d');
 
+        // Resize the canvas 
         window.addEventListener('resize', resizeCanvas, false);
 
         function resizeCanvas() {
@@ -187,12 +195,14 @@
                 const x = i * candleWidth;
                 const y = height - candleHeight;
 
+                // Draw the wick
                 ctx.strokeStyle = color;
                 ctx.beginPath();
                 ctx.moveTo(x + candleWidth / 2, y);
                 ctx.lineTo(x + candleWidth / 2, height);
                 ctx.stroke();
 
+                // Draw the body
                 ctx.fillStyle = color;
                 ctx.fillRect(x, y, candleWidth - 2, candleHeight);
             }
