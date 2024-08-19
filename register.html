@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Market-Pulse</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow: hidden; /* Hide default scrollbars */
+        }
+        .scrollable-container {
+            height: 100%;
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+            padding-top: 60px; /* Space for fixed header */
+        }
+        .register-container {
+            background-color: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 1000px;
+            margin: 20px auto; /* Center the container with margin */
+            padding: 20px; /* Increased padding for better spacing */
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #bb86fc;
+            margin: 0 0 20px 0; /* Reduced margin to bring heading closer to the form */
+            text-align: center;
+        }
+        form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px; /* Adjusted grid gap for better spacing */
+            margin-bottom: 20px; /* Ensured space below the form */
+        }
+        .form-section {
+            padding: 20px; /* Increased padding for consistency */
+            background-color: rgba(50, 50, 50, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="date"], select, textarea {
+            width: 100%;
+            padding: 10px; /* Ensured consistent padding */
+            margin-bottom: 10px; /* Ensured space between elements */
+            border: none;
+            border-radius: 5px;
+            background-color: #2e2e2e;
+            color: #e0e0e0;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 12px; /* Consistent padding for the button */
+            border: none;
+            border-radius: 5px;
+            background-color: #bb86fc;
+            color: #121212;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px; /* Adjusted margin-top for button */
+            grid-column: span 3; /* Span all columns */
+        }
+        button:hover {
+            background-color: #3700b3;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: #bb86fc;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        nav a:hover {
+            color: #3700b3;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('login') }}">Login</a>
+    </nav>
+    <div class="scrollable-container">
+        <div class="register-container">
+            <h1>Register</h1>
+            <form action="/register" method="post">
+                <!-- Personal Info Section -->
+                <div class="form-section">
+                    <h2>Personal Info</h2>
+                    <input type="text" name="username" placeholder="User Name" required>
+                    <input type="text" name="first_name" placeholder="First Name" required>
+                    <input type="text" name="last_name" placeholder="Last Name" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <!-- <input type="password" name="confirm_password" placeholder="Confirm Password" required> -->
+                    <input type="date" name="dob" placeholder="Date of Birth" required>
+                    <select name="gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <!-- Contact Details Section -->
+                <div class="form-section">
+                    <h2>Contact Details</h2>
+                    <input type="email" name="email" placeholder="Email" >
+                    <input type="tel" name="phone" placeholder="Phone Number" >
+                    <input type="text" name="address" placeholder="Address" >
+                    <input type="text" name="city" placeholder="City" >
+                    <input type="text" name="state" placeholder="State" >
+                    <input type="text" name="number" placeholder="ZIP/Postal Code" >
+                </div>
+                <!-- Additional Info Section -->
+                <div class="form-section">
+                    <h2>Additional Info</h2>
+                    <textarea name="bio" placeholder="Tell us about yourself" rows="4"></textarea>
+                    <select name="occupation">
+                        <option value="">Select Occupation</option>
+                        <option value="student">Student</option>
+                        <option value="professional">Professional</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="text" name="website" placeholder="Personal Website (optional)">
+                    <input type="text" name="linkedin" placeholder="LinkedIn Profile (optional)">
+                    <input type="text" name="twitter" placeholder="Twitter Handle (optional)">
+                </div>
+                <!-- Submit Button -->
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

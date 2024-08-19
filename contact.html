@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Market-Pulse</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .feedback-container {
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        h1 {
+            color: #bb86fc;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            text-align: left;
+        }
+        input[type="text"], input[type="email"], textarea, select {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2e2e2e;
+            color: #e0e0e0;
+            width: calc(100% - 22px);
+        }
+        .rating {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .rating label {
+            margin: 0;
+        }
+        .rating input[type="radio"] {
+            display: none;
+        }
+        .rating label span {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #2e2e2e;
+            color: #e0e0e0;
+            text-align: center;
+            line-height: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .rating input[type="radio"]:checked + label span {
+            background-color: #bb86fc;
+            color: #121212;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #bb86fc;
+            color: #121212;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: calc(100% - 22px);
+        }
+        button:hover {
+            background-color: #3700b3;
+        }
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 10;
+        }
+        nav a {
+            color: #bb86fc;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        nav a:hover {
+            color: #3700b3;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <!-- <a href="{{ url_for('index') }}">Home</a> -->
+        <!-- <a href="{{ url_for('login') }}">Login</a> -->
+        <!-- <a href="{{ url_for('index') }}">LandingPage</a> -->
+        <a href="{{ url_for('home') }}">Home</a>
+        <!-- <a href="{{ url_for('contact') }}">Feedback</a> -->
+    </nav>
+    <div class="feedback-container">
+        <h1>Feedback</h1>
+        <form action="/contact" method="post">
+            <label for="website_experience">How do you find our website?</label>
+            <select name="website_experience" id="website_experience" required>
+                <option value="" disabled selected>Select your option</option>
+                <option value="very_satisfied">Very Satisfied</option>
+                <option value="satisfied">Satisfied</option>
+                <option value="neutral">Neutral</option>
+                <option value="dissatisfied">Dissatisfied</option>
+                <option value="very_dissatisfied">Very Dissatisfied</option>
+            </select>
+            
+            <label for="relevance">How relevant is the content?</label>
+            <div class="rating" id="relevance" name="relevance">
+                {% for i in range(1, 11) %}
+                <input type="radio" id="relevance_{{ i }}" name="relevance" value="{{ i }}" required>
+                <label for="relevance_{{ i }}"><span>{{ i }}</span></label>
+                {% endfor %}
+            </div>
+            
+            <label for="recommendation">How likely are you to recommend us?</label>
+            <div class="rating" id="recommendation">
+                {% for i in range(1, 11) %}
+                <input type="radio" id="recommendation_{{ i }}" name="recommendation" value="{{ i }}" required>
+                <label for="recommendation_{{ i }}"><span>{{ i }}</span></label>
+                {% endfor %}
+            </div>
+            
+            <label for="user_friendly">How user-friendly is our website?</label>
+            <div class="rating" id="user_friendly">
+                {% for i in range(1, 11) %}
+                <input type="radio" id="user_friendly_{{ i }}" name="user_friendly" value="{{ i }}" required>
+                <label for="user_friendly_{{ i }}"><span>{{ i }}</span></label>
+                {% endfor %}
+            </div>
+            
+            <label for="improvements">Any suggestions for improvements?</label>
+            <textarea name="improvements" id="improvements" rows="4" placeholder="Share your suggestions..."></textarea>
+            
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+</body>
+</html>
